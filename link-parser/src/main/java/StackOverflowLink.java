@@ -8,6 +8,9 @@ public record StackOverflowLink(int questionId) implements Link {
     }
 
     public static StackOverflowLink parseStackOverflowLink(URI uri) {
+        if (uri.getHost() == null) {
+            return null;
+        }
         if (!uri.getHost().equals("stackoverflow.com")) {
             return null;
         }
@@ -31,8 +34,4 @@ public record StackOverflowLink(int questionId) implements Link {
         }
     }
 
-    @Override
-    public Object getLinkInfo() {
-        return String.format("StackOverflow question: %d", questionId);
-    }
 }

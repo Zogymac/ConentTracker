@@ -8,6 +8,9 @@ public record GithubLink(String username, String repository) implements Link {
     }
 
     public static GithubLink parseGithubLink(URI uri) {
+        if (uri.getHost() == null) {
+            return null;
+        }
         if (!uri.getHost().equals("github.com")) {
             return null;
         }
@@ -22,8 +25,5 @@ public record GithubLink(String username, String repository) implements Link {
         return new GithubLink(username, repository);
     }
 
-    @Override
-    public Object getLinkInfo() {
-        return String.format("GitHub repository: %s/%s", username, repository);
-    }
+
 }
